@@ -18,4 +18,6 @@ urlpatterns = patterns('',
     url(r'^$', 'app_test1.views.home', name='home'),
     url(r'^add/$','app_test1.views.add',name = 'add'),
     url(r'^add/(\d+)/(\d+)/$', 'app_test1.views.add2', name='add2'),
+    # blog
+    url(r'^blog/', include('blog.urls')),
 )
