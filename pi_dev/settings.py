@@ -60,11 +60,12 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-#BASE_DIR =  os.path.dirname(__file__)
-#BASE_DIR = BASE_DIR[:len(BASE_DIR)-BASE_DIR[::-1].find('/')]
-BASE_DIR = '/var/www/pi_dev/'
+BASE_DIR =  os.path.dirname(__file__).replace('\\','/')
+BASE_DIR = BASE_DIR[:len(BASE_DIR)-BASE_DIR[::-1].find('/')]
+#BASE_DIR = '/var/www/pi_dev/'
 #print BASE_DIR
 STATIC_ROOT = os.path.join(BASE_DIR, "static").replace('\\','/')
+#print STATIC_ROOT
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
