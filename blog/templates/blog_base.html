@@ -10,7 +10,9 @@
 	
 	<!-- Custom styles for this template -->
     <link href="//v3.bootcss.com/examples/starter-template/starter-template.css" rel="stylesheet">
-
+	<!-- 模板中使用必须要加上 {% load staticfiles %} 之后，方可使用 {% static 'path' %} 来引用静态文件。-->
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/emacs.css' %}">
 	{% block extra_head %}{% endblock %}
   </head>
   <body>
