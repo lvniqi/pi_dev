@@ -14,12 +14,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^$','wechat.views.index',name = 'home'),
-    url(r'^$', 'home.views.home', name='home'),
-    url(r'^add/$','home.views.add',name = 'add'),
-    url(r'^add/(\d+)/(\d+)/$', 'home.views.add2', name='add2'),
+    #url(r'^$','app_test1.views.index',name = 'home'),
+    url(r'^$', 'app_test1.views.home', name='home'),
+    url(r'^add/$','app_test1.views.add',name = 'add'),
+    url(r'^add/(\d+)/(\d+)/$', 'app_test1.views.add2', name='add2'),
     # blog
-    url(r'^blog/', include('blog.urls')),
-    # wechat
-    url(r'^wechat$','wechat.views.wechat',name = 'wechat'),
+    url(r'^blog/', include('blog.urls')),url(r'^add/$','app_test1.views.add',name = 'add'),
 )

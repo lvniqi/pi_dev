@@ -10,7 +10,7 @@ from wechat_sdk.messages import TextMessage
 
 WECHAT_TOKEN = 'lvniqi930417'
 AppID = 'wx93690ae114779c99'
-AppSecret = ''
+AppSecret = '45a654166db25633d6e708baeb947d35'
 
 # 实例化 WechatBasic
 wechat_instance = WechatBasic(
