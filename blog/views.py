@@ -33,8 +33,8 @@ class ArticleListView(ListView):
     template_name = 'blog_index.html'
 
     def get_queryset(self, **kwargs):
-        object_list = Article.objects.all().order_by('created')[:100]
-        paginator = Paginator(object_list, 10)
+        object_list = Article.objects.all().order_by('-'+'created')[:100]
+        paginator = Paginator(object_list, 5)
         page = self.request.GET.get('page')
         try:
             object_list = paginator.page(page)
