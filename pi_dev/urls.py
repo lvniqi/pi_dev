@@ -15,8 +15,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^$','wechat.views.index',name = 'home'),
-    url(r'^$', 'wechat.views.home', name='home'),
-    url(r'^add/$','wechat.views.add',name = 'add'),
+    url(r'^$', 'home.views.home', name='home'),
+    url(r'^add/$','home.views.add',name = 'add'),
     url(r'^add/(\d+)/(\d+)/$', 'wechat.views.add2', name='add2'),
     # blog
     url(r'^blog/', include('blog.urls')),
