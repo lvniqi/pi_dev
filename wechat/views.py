@@ -8,7 +8,7 @@ from wechat_sdk import WechatBasic
 from wechat_sdk.exceptions import ParseError
 from wechat_sdk.messages import TextMessage
 
-WECHAT_TOKEN = 'lvniqi_helllo_world_khgsdaqweczckahiqbfaksjdhuwqd'
+WECHAT_TOKEN = 'aqweczckahiqbfaksjdhuwqdlvniqi'
 AppID = 'wx93690ae114779c99'
 AppSecret = '45a654166db25633d6e708baeb947d35'
 
