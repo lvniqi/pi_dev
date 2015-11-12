@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     url(r'^add/(\d+)/(\d+)/$', 'app_test1.views.add2', name='add2'),
     # blog
     url(r'^blog/', include('blog.urls')),
+    # wechat
+    url(r'^wechat/$','wechat.views.wechat',name = 'wechat'),
 )
