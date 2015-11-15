@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from wechat_sdk import WechatBasic
 from wechat_sdk.exceptions import ParseError
-from wechat_sdk.messages import TextMessage
+from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMessage, LinkMessage, LocationMessage, EventMessage
+
 
 WECHAT_TOKEN = 'aqweczckahiqbfaksjdhuwqdlvniqi'
 AppID = 'wx93690ae114779c99'
@@ -67,5 +68,32 @@ def wechat(request):
         else:
             reply_text = content
         response = wechat_instance.response_text(content=reply_text)
- 
+    elif isinstance(message, VoiceMessage):
+        response = wechat_instance.response_text(content=u'语音信息')
+    elif isinstance(message, ImageMessage):
+        response = wechat_instance.response_text(content=u'图片信息')
+    elif isinstance(message, VideoMessage):
+        response = wechat_instance.response_text(content=u'视频信息')
+    elif isinstance(message, LinkMessage):
+        response = wechat_instance.response_text(content=u'链接信息')
+    elif isinstance(message, LocationMessage):
+        response = wechat_instance.response_text(content=u'地理位置信息')
+    elif isinstance(message, EventMessage):  # 事件信息
+        if message.type == 'subscribe':  # 关注事件(包括普通关注事件和扫描二维码造成的关注事件)
+            if message.key and message.ticket:  # 如果 key 和 ticket 均不为空，则是扫描二维码造成的关注事件
+                response = wechat_instance.response_text(content=u'用户尚未关注时的二维码扫描关注事件')
+            else:
+                response = wechat_instance.response_text(content=u'普通关注事件')
+        elif message.type == 'unsubscribe':
+            response = wechat_instance.response_text(content=u'取消关注事件')
+        elif message.type == 'scan':
+            response = wechat_instance.response_text(content=u'用户已关注时的二维码扫描事件')
+        elif message.type == 'location':
+            response = wechat_instance.response_text(content=u'上报地理位置事件')
+        elif message.type == 'click':
+            response = wechat_instance.response_text(content=u'自定义菜单点击事件')
+        elif message.type == 'view':
+            response = wechat_instance.response_text(content=u'自定义菜单跳转链接事件')
+        elif message.type == 'templatesendjobfinish':
+            response = wechat_instance.response_text(content=u'模板消息事件')
     return HttpResponse(response, content_type="application/xml")
