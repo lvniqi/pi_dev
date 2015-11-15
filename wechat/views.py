@@ -10,8 +10,9 @@ from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMe
 
 import os,sys
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print parentdir
 sys.path.insert(0,parentdir)
-from iot import get_temp
+import iot.get_temp
 
 WECHAT_TOKEN = 'aqweczckahiqbfaksjdhuwqdlvniqi'
 AppID = 'wx93690ae114779c99'
@@ -63,6 +64,8 @@ def wechat(request):
                 )
         elif content.endswith('教程'):
             reply_text = '您要找的教程如下：'
+	elif content.endswith('温度'):
+            reply_text = "CPU temp: "+str(iot.get_temp.get_cpu_temp())
         else:
             reply_text = content
         response = wechat_instance.response_text(content=reply_text)
