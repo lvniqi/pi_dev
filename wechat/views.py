@@ -45,13 +45,7 @@ def wechat(request):
  
     # 获取解析好的微信请求信息
     message = wechat_instance.get_message()
- 
-    # 关注事件以及不匹配时的默认回复
-    response = wechat_instance.response_text(
-        content = (
-            '感谢您的关注！\n回复【功能】两个字查看支持的功能，还可以回复任意内容开始聊天'
-            '\n【<a href="http://www.ziqiangxuetang.com">自强学堂手机版</a>】'
-            ))
+    
     if isinstance(message, TextMessage):
         # 当前会话内容
         content = message.content.strip()
