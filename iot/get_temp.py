@@ -13,7 +13,13 @@ def get_gpu_temp():
     return  float(gpu_temp)
     # Uncomment the next line if you want the temp in Fahrenheit
     # return float(1.8* gpu_temp)+32
- 
+
+def get_status():
+    rst = ""
+    rst += "CPU temp: "+str(get_cpu_temp())+"℃\r\n"
+    rst += "GPU temp: "+str(get_gpu_temp())+"℃\r\n"
+    return rst
+    
 def main():
     print "CPU temp: ", str(get_cpu_temp())
     print "GPU temp: ", str(get_gpu_temp())
