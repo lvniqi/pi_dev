@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import commands
  
 def get_cpu_temp():
