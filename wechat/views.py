@@ -8,6 +8,10 @@ from wechat_sdk import WechatBasic
 from wechat_sdk.exceptions import ParseError
 from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMessage, LinkMessage, LocationMessage, EventMessage
 
+import os,sys
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0,parentdir)
+from iot import get_temp
 
 WECHAT_TOKEN = 'aqweczckahiqbfaksjdhuwqdlvniqi'
 AppID = 'wx93690ae114779c99'
