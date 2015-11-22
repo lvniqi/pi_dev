@@ -159,10 +159,17 @@
 						feature : {
 							mark : {show: true},
 							dataView : {show: true, readOnly: false},
+							dataZoom : {show: true},
 							magicType : {show: true, type: ['line', 'bar']},
 							restore : {show: true},
 							saveAsImage : {show: true}
 						}
+					},
+					dataZoom:{
+						orient:"horizontal", //水平显示
+						show:true, //显示滚动条
+						start:20, //起始值为20%
+						end:60  //结束值为60%
 					},
 					calculable : true,
 					xAxis : [
@@ -232,6 +239,9 @@
         
                 // 为echarts对象加载数据 
                 myChart.setOption(option); 
+				window.onresize = function () {
+					myChart.resize(); //使第一个图表适应
+				}
             }
         );
     </script>
