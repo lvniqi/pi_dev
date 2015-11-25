@@ -45,7 +45,7 @@ def home(request):
     #tt.addSeries(u'测试气温',t)
     #tt.addSeries(u'最低气温',t)
     #tt.addSeries(u'最高气温',t)
-    print tt.getSeries()
+    #print tt.getSeries()
     return render(request, 'home.html', 
         {'string': string,
         "legend":tt.getLegend(),

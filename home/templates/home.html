@@ -23,7 +23,9 @@
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
     
 	<!-- Custom styles for this template -->
-    <link href="//v3.bootcss.com/examples/starter-template/starter-template.css" rel="stylesheet">
+	<!-- 模板中使用必须要加上 {% load staticfiles %} 之后，方可使用 {% static 'path' %} 来引用静态文件。-->
+	{% load staticfiles %}
+	<link href="{% static 'css/starter.css' %}" rel="stylesheet" >
     <link href="http://v3.bootcss.com/examples/carousel/carousel.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -38,28 +40,9 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
+    {% block nav %}
+      {% include "home_nav.html" %}
+    {% endblock %}
     <div class="container">
 
       <div class="starter-template">
