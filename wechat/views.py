@@ -10,8 +10,9 @@ from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMe
 
 import os,sys
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#print parentdir
-sys.path.insert(0,parentdir)
+#如果已经在了，不要重复添加
+if sys.path[0] != parentdir:
+    sys.path.insert(0,parentdir)
 from iot.get_temp import get_status as get_temp
 
 WECHAT_TOKEN = 'aqweczckahiqbfaksjdhuwqdlvniqi'
