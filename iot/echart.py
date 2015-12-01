@@ -15,10 +15,10 @@ class echart:
             if self.type != "time":
                 self.type = "time"
                 self.data = {}
-            d_t = {}
+            d_t = []
             for item in data:
-                time = u"new Date(%d,%d,%d,%d,%d,%d)"%(int(item[u'year']),int(item[u'month']),int(item[u'day']),int(item[u'hour']),int(item[u'minute']),int(item[u'second']))
-                d_t[time] = item[u'data']
+                time = u'new Date("%s")'%(item[u'date'])
+                d_t.append((time,item[u'data']))
             self.data[title] = d_t
         #添加日期数据
         else:
@@ -54,7 +54,7 @@ class echart:
             length = len(self.data[title])
             data = "["
             for x in self.data[title]:
-                data += u"["+x+ u',' + str(self.data[title][x]) + u'],'
+                data += u"["+x[0]+ u',' + str(x[1]) + u'],'
             data += u"]"
             return series%(title,data)
     def getSeries(self):
