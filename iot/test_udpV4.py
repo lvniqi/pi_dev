@@ -1,4 +1,4 @@
-#! /usr/lib/python2.7/ python
+#!/usr/lib/python2.7/ python
 # -*- coding: utf-8 -*-
 import socket, traceback
 from random import random

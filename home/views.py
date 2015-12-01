@@ -40,9 +40,9 @@ def home(request):
     t3 = Temp_Node()
     tt = echart()
     t = [0, 100, 0, 100, 12, 13, 10]
-    tt.addSeries(u'temperature',test_time(object_list,lambda x:x.temperature),isTime = True)
-    tt.addSeries(u'humidity',test_time(object_list,lambda x:x.humidity),isTime = True)
-    tt.addSeries(u'flux',test_time(object_list,lambda x:x.l_flux),isTime = True)
+    tt.addSeries(u'temperature',test_time(object_list,lambda x:"%.1f"%(x.temperature)),isTime = True)
+    tt.addSeries(u'humidity',test_time(object_list,lambda x:"%.1f"%(x.humidity)),isTime = True)
+    tt.addSeries(u'flux',test_time(object_list,lambda x:"%.1f"%(x.l_flux)),isTime = True)
     
     
     #tt.addSeries(u'测试气温',t)
