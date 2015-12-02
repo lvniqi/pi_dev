@@ -81,7 +81,7 @@ if __name__ == "__main__":
         decode_struct =  message_decode(addr,measure_struct)
         message_display(decode_struct)
         
-        save_temp_node(decode_struct[0][1],decode_struct[1][1],decode_struct[2][1])
+        save_temp_node(decode_struct[2][1],decode_struct[3][1],decode_struct[4][1])
         
     s_in.close()
     
