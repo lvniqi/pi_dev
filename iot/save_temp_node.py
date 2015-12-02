@@ -1,10 +1,8 @@
-from os import getcwd
+import os
 import sqlite3
 from datetime import datetime
-
 def getdir():
-    dir = getcwd()
-    return dir[:dir.rindex('\\')]+'\\pi_dev\\db.sqlite3'
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace('\\','/')+'/pi_dev/db.sqlite3'
 
 def save_temp_node(temperature,humidity,l_flux):
     cx = sqlite3.connect(getdir())
