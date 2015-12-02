@@ -76,12 +76,14 @@ if __name__ == "__main__":
     s_in = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s_in.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     s_in.bind(("",port_in))
+    i = -1
     while(1):
         addr = s_in.recv(4096)
         decode_struct =  message_decode(addr,measure_struct)
-        message_display(decode_struct)
-        
-        save_temp_node(decode_struct[2][1],decode_struct[3][1],decode_struct[4][1])
+        i = (i+1)%60
+        if i == 0:
+            save_temp_node(decode_struct[2][1],decode_struct[3][1],decode_struct[4][1])
+            message_display(decode_struct)
         
     s_in.close()
     
