@@ -36,7 +36,7 @@ def test_time(node_List,data_func):
     return data
 def home(request):
     string = u"我正在Django，用它来建网站"
-    object_list = Temp_Node.objects.all().order_by('id')[:100]
+    object_list = Temp_Node.objects.all().order_by('id')[:1000]
     t3 = Temp_Node()
     tt = echart()
     t = [0, 100, 0, 100, 12, 13, 10]
