@@ -2,7 +2,7 @@
 import os
 import sqlite3
 from datetime import datetime    
-import com_meassage
+from com_message import com_message
 #温度节点
 class temperature_node:
     
