@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #print last
     message = com_message(2,1,measure_struct)
     last_date = last[3]
-    last_data = last[4:]
+    last_data = list(last[4:])
     last_udate = True
     #print last_date
     while(1):
@@ -62,11 +62,10 @@ if __name__ == "__main__":
                 t_node.save_temp_node(last_data[0],last_data[1],last_data[2],last_date)
             print "update!",last_data,new_data
             t_node.save_temp_node(new_data[0],new_data[1],new_data[2])
-            last_data = new_data
         else:
             print "un change",last_data,new_data
             last_udate = False
-        
+        last_data = new_data
         last_date = datetime.utcnow().__str__()
         
     s_in.close()
