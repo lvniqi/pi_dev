@@ -20,7 +20,7 @@ class temperature_node:
     def save_temp_node(self,temperature,humidity,l_flux,date = None):
         '''保存数据'''
         if not date:
-            date = datetime.today().__str__()
+            date = datetime.utcnow().__str__()
         
         cu2 = self.cu.execute("select * from home_temp_node")
         num = cu2.fetchall()[-1][0]
@@ -35,6 +35,6 @@ class temperature_node:
         
 if __name__ == "__main__":
     t = temperature_node()
-    print t.get_last_temp_node(u"test")
-    t.save_temp_node(1,2,3)
-    print t.get_last_temp_node(u"test")
+    print t.get_last_temp_node(u"test")[4:]
+    #t.save_temp_node(1,2,3)
+    #print t.get_last_temp_node(u"test")
