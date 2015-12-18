@@ -34,6 +34,7 @@ def test_time(node_List,data_func):
         t[u'data'] = data_func(node)
         data.append(t)
     return data
+@cache_page(60 * 1) # 秒数，这里指缓存 1 分钟，不直接写900是为了提高可读性
 def home(request):
     string = u"我正在Django，用它来建网站"
     object_list = Temp_Node.objects.all().order_by('id')[:1000]

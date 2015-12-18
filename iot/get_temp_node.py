@@ -1,4 +1,4 @@
-#!/usr/lib/python2.7/ python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 import socket, traceback
 from time import sleep
