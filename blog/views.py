@@ -38,7 +38,7 @@ class ArticlePublishView(AdminRequiredMixin,FormView):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
         
-class ArticleListView(AdminRequiredMixin,ListView):
+class ArticleListView(ListView):
     template_name = 'blog_index.html'
 
     def get_queryset(self, **kwargs):
@@ -55,7 +55,7 @@ class ArticleListView(AdminRequiredMixin,ListView):
             object_list = paginator.page(paginator.num_pages)
         return object_list
         
-class ArticleDetailView(AdminRequiredMixin,DetailView):
+class ArticleDetailView(DetailView):
     template_name = 'article_detail.html'
 
     def get_object(self, **kwargs):
