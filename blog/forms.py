@@ -14,7 +14,7 @@ class ArticlePublishForm(forms.Form):
     title = forms.CharField(
         label=u'文章标题',
         max_length=50,
-        widget=forms.TextInput(attrs={'class': '', 'placeholder': u'文章标题"'}),
+        widget=forms.TextInput(attrs={'class': '', 'placeholder': u'文章标题'}),
         )
 
     content = forms.CharField(

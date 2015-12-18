@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Create your views here.
 from django.shortcuts import render
 from django.views.generic.edit import FormView
@@ -12,15 +13,22 @@ from django.db.models import F
 from forms import ArticlePublishForm
 
 from models import Article
-
+#对于非管理员用户隐藏发布/编辑文章按钮
+from django.contrib.admin.views.decorators import staff_member_required
 def blog_index(request):
     context = {
         'test': 'just for test.',
         'welcome': 'hello world.'
     }
     return render(request, 'blog_index.html', context)
-    
-class ArticlePublishView(FormView):
+
+class AdminRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(AdminRequiredMixin, cls).as_view(**initkwargs)
+        return staff_member_required(view)
+
+class ArticlePublishView(FormView,AdminRequiredMixin):
     template_name = 'article_publish.html'
     form_class = ArticlePublishForm
     success_url = '/blog/'
@@ -29,7 +37,7 @@ class ArticlePublishView(FormView):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
         
-class ArticleListView(ListView):
+class ArticleListView(ListView,AdminRequiredMixin):
     template_name = 'blog_index.html'
 
     def get_queryset(self, **kwargs):
@@ -46,7 +54,7 @@ class ArticleListView(ListView):
             object_list = paginator.page(paginator.num_pages)
         return object_list
         
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView,AdminRequiredMixin):
     template_name = 'article_detail.html'
 
     def get_object(self, **kwargs):
