@@ -42,7 +42,7 @@ if __name__ == "__main__":
     #print last_date
     while(1):
         (temperature,humidity,l_flux) = ([],[],[])
-        for i in range(5):
+        for i in range(12):
             bit_datas = s_in.recv(4096)
             decode_struct =  message.decode(bit_datas)
             (temperature_t,humidity_t,l_flux_t) = decode_struct.getDatas(measure_struct_save)
