@@ -26,9 +26,10 @@ class AdminRequiredMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
         view = super(AdminRequiredMixin, cls).as_view(**initkwargs)
+        print 'test'
         return staff_member_required(view)
 
-class ArticlePublishView(FormView,AdminRequiredMixin):
+class ArticlePublishView(AdminRequiredMixin,FormView):
     template_name = 'article_publish.html'
     form_class = ArticlePublishForm
     success_url = '/blog/'
@@ -37,7 +38,7 @@ class ArticlePublishView(FormView,AdminRequiredMixin):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
         
-class ArticleListView(ListView,AdminRequiredMixin):
+class ArticleListView(AdminRequiredMixin,ListView):
     template_name = 'blog_index.html'
 
     def get_queryset(self, **kwargs):
@@ -54,7 +55,7 @@ class ArticleListView(ListView,AdminRequiredMixin):
             object_list = paginator.page(paginator.num_pages)
         return object_list
         
-class ArticleDetailView(DetailView,AdminRequiredMixin):
+class ArticleDetailView(AdminRequiredMixin,DetailView):
     template_name = 'article_detail.html'
 
     def get_object(self, **kwargs):
