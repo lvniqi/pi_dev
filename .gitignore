@@ -191,6 +191,8 @@ $RECYCLE.BIN/
 *.py[cod]
 */*.pyc
 *.save
+*.pyc
+*.sqlite3
 # Packages
 *.egg
 *.egg-info
