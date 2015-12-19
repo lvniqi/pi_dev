@@ -62,20 +62,12 @@ class ArticleListView(CachingMixin,models.Model,ListView):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             object_list = paginator.page(paginator.num_pages)
+        for pos in range(len(object_list)):
+            object_list[pos].tags = object_list[pos].tags.split()
         return object_list
         
 class ArticleDetailView(CachingMixin,models.Model,DetailView):
-    val = models.IntegerField()
-    
-    objects = CachingManager()
-     
-    class Meta:
-        # without this, Postgres & SQLite return objects in different orders:
-        ordering = ('pk',)
-        
-    
     template_name = 'article_detail.html'
-    @cached_method
     def get_object(self, **kwargs):
         title = self.kwargs.get('title')
         try:
