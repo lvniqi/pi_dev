@@ -1,17 +1,25 @@
 <div class="col-xs-12 col-sm-9">
-	{% for o in object_list %}
+		<p>URL of this page: {{ request.get_full_path|urlencode }}</p>
+		{% for object in object_list %}
 		  <div class="article-item">
 			<div class="article-info">
-			  <h3 class="lead"><a href="{% url 'article_detail' o.title %}">{{ o.title_zh }}</a></h3>
-			  <p>阅读次数：{{ o.views }}，作者：{{ o.author }}，发布时间：{{ o.created|date:"Y/n/j" }}，文章标签：{{ o.tags }}</p>
+			  <h3 class="lead"><a href="{% url 'article_detail' object.title %}">{{ object.title_zh }}</a></h3>
+			  
+			</div>
+			<div class="article-tags">
+			  <p>发布时间：{{ object.created|date:"Y/n/j" }}</p>
+			  {% for tag in object.tags %}
+			  <span class="label label-info"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> {{ tag }}</span>
+			  {% endfor %}
 			</div>
 			<div class="summary">
 			  {% autoescape off %}
-			  <h3>{{ o.content_html|truncatechars_html:200 }}</h3>
+			  <h3>{{ object.content_html|truncatechars_html:200 }}</h3>
 			  {% endautoescape %}
 			</div>
 		  </div>
-	{% endfor %}
+		<hr /> 
+		{% endfor %}
 	<nav>
 		<ul class="pager">
 		  <li class="current">{{ object_list.number  }} / {{ object_list.paginator.num_pages  }}</li>
