@@ -8,19 +8,20 @@ from django.http import Http404
 from django.views.generic.detail import DetailView
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F
+
+from django.db import models
 
 from forms import ArticlePublishForm
 
 from models import Article
 #对于非管理员用户隐藏发布/编辑文章按钮
 from django.contrib.admin.views.decorators import staff_member_required
-def blog_index(request):
-    context = {
-        'test': 'just for test.',
-        'welcome': 'hello world.'
-    }
-    return render(request, 'blog_index.html', context)
+#cache
+from caching.base import CachingMixin, CachingManager, cached_method
+#import mock
+# This global call counter will be shared among all instances of an Addon.
+#call_counter = mock.Mock()
+
 
 class AdminRequiredMixin(object):
     @classmethod
@@ -33,14 +34,22 @@ class ArticlePublishView(AdminRequiredMixin,FormView):
     template_name = 'article_publish.html'
     form_class = ArticlePublishForm
     success_url = '/blog/'
-
     def form_valid(self, form):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
-        
-class ArticleListView(ListView):
-    template_name = 'blog_index.html'
 
+    
+class ArticleListView(CachingMixin,models.Model,ListView):
+    val = models.IntegerField()
+    
+    objects = CachingManager()
+     
+    class Meta:
+        # without this, Postgres & SQLite return objects in different orders:
+        ordering = ('pk',)
+        
+    template_name = 'blog_index.html'
+    @cached_method
     def get_queryset(self, **kwargs):
         object_list = Article.objects.all().order_by('-'+'created')[:100]
         paginator = Paginator(object_list, 5)
@@ -55,9 +64,18 @@ class ArticleListView(ListView):
             object_list = paginator.page(paginator.num_pages)
         return object_list
         
-class ArticleDetailView(DetailView):
+class ArticleDetailView(CachingMixin,models.Model,DetailView):
+    val = models.IntegerField()
+    
+    objects = CachingManager()
+     
+    class Meta:
+        # without this, Postgres & SQLite return objects in different orders:
+        ordering = ('pk',)
+        
+    
     template_name = 'article_detail.html'
-
+    @cached_method
     def get_object(self, **kwargs):
         title = self.kwargs.get('title')
         try:
