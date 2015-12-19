@@ -10,34 +10,7 @@
 		<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
 	</p>
     <div class="col-xs-12 col-sm-9">
-      {% for o in object_list %}
-      <div class="article-item">
-        <div class="article-info">
-		  <h3 class="lead"><a href="{% url 'article_detail' o.title %}">{{ o.title_zh }}</a></h3>
-          <p>阅读次数：{{ o.views }}，作者：{{ o.author }}，发布时间：{{ o.created|date:"Y/n/j" }}，文章标签：{{ o.tags }}</p>
-        </div>
-        <div class="summary">
-          {% autoescape off %}
-          <h3>{{ o.content_html|truncatechars_html:200 }}</h3>
-          {% endautoescape %}
-        </div>
-      </div>
-      {% endfor %}
-      <nav>
-        <ul class="pager">
-          <li class="current">{{ object_list.number  }} / {{ object_list.paginator.num_pages  }}</li>
-          {% if object_list.has_previous %}
-          <li class="previous"><a href="?page={{ object_list.previous_page_number  }}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-          {% else %}
-          <li class="previous disabled"><a href=""><span aria-hidden="true">&larr;</span> 上一页</a></li>
-          {% endif %}
-          {% if object_list.has_next %}
-          <li class="next"><a href="?page={{ object_list.next_page_number  }}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-          {% else %}
-          <li class="next disabled"><a href="">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-          {% endif %}
-        </ul>
-      </nav>
+      {% include "blog_list.html" %}
     </div>
     <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 		<a href="#" class="list-group-item active">Link</a>
