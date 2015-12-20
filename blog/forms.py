@@ -29,7 +29,7 @@ class ArticlePublishForm(forms.Form):
         widget=forms.TextInput(attrs={'class': '', 'placeholder': u'文章标签，以空格进行分割'}),
         )
 
-    def save(self, username):
+    def save(self, username, article=None):
         cd = self.cleaned_data
         title = cd['title']
         title_zh = title
@@ -45,15 +45,24 @@ class ArticlePublishForm(forms.Form):
                 break
         url = '/article/%s' % (title)
         tags = cd['tags']
-        article = Article(
-            url=url,
-            title=title,
-            title_zh=title_zh,
-            author=username,
-            content_md=content_md,
-            content_html=content_html,
-            tags=tags,
-            views=0,
-            created=now,
-            updated=now)
+        if article:
+            article.url = url
+            article.title = title
+            article.title_zh = title_zh
+            article.content_md = content_md
+            article.content_html = content_html
+            article.tags = tags
+            article.updated = now
+        else:
+            article = Article(
+                url=url,
+                title=title,
+                title_zh=title_zh,
+                author=username,
+                content_md=content_md,
+                content_html=content_html,
+                tags=tags,
+                views=0,
+                created=now,
+                updated=now)
         article.save()

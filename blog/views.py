@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
-
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.views.generic.detail import DetailView
 
@@ -27,18 +27,43 @@ class AdminRequiredMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
         view = super(AdminRequiredMixin, cls).as_view(**initkwargs)
-        print 'test'
+        #print 'test'
         return staff_member_required(view)
 
 class ArticlePublishView(AdminRequiredMixin,FormView):
     template_name = 'article_publish.html'
     form_class = ArticlePublishForm
-    success_url = '/blog/'
     def form_valid(self, form):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
 
-    
+class ArticleEditView(AdminRequiredMixin,FormView):
+    template_name = 'article_publish.html'
+    form_class = ArticlePublishForm
+    article = None
+
+    def get_initial(self, **kwargs):
+        title = self.kwargs.get('title')
+        try:
+            self.article = Article.objects.get(title=title)
+            initial = {
+                'title': title,
+                'content': self.article.content_md,
+                'tags': self.article.tags,
+            }
+            return initial
+        except Article.DoesNotExist:
+            raise Http404("Article does not exist")
+
+    def form_valid(self, form):
+        form.save(self.request, self.article)
+        return super(ArticleEditView, self).form_valid(form)
+
+    def get_success_url(self):
+        title = self.request.POST.get('title')
+        success_url = reverse('article_detail', args=(title,))
+        return success_url
+        
 class ArticleListView(CachingMixin,models.Model,ListView):
     val = models.IntegerField()
     
