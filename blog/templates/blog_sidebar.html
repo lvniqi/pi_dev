@@ -4,7 +4,7 @@
 			最近的文章
 		</div>
 		<div class="list-group">
-			{% for o in object_list %}
+			{% for o in object_list_all %}
 				{% if forloop.counter < 5 %}
 					<a href="{% url 'article_detail' o.title %}" class="list-group-item">{{o.title_zh}}</a>
 				{% endif %}
