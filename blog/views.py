@@ -18,6 +18,10 @@ from models import Article
 from django.contrib.admin.views.decorators import staff_member_required
 #cache
 from caching.base import CachingMixin, CachingManager, cached_method
+#添加二维码
+from django.http import HttpResponse
+import qrcode
+from cStringIO import StringIO
 #import mock
 # This global call counter will be shared among all instances of an Addon.
 #call_counter = mock.Mock()
@@ -74,7 +78,7 @@ class ArticleListView(CachingMixin,models.Model,ListView):
         ordering = ('pk',)
         
     template_name = 'blog_index.html'
-    @cached_method
+    #@cached_method
     def get_queryset(self, **kwargs):
         object_list = Article.objects.all().order_by('-'+'created')[:100]
         paginator = Paginator(object_list, 5)
@@ -91,6 +95,10 @@ class ArticleListView(CachingMixin,models.Model,ListView):
             object_list[pos].tags = object_list[pos].tags.split()
         return object_list
         
+    def get_context_data(self, **kwargs):
+        context = super(ArticleListView, self).get_context_data(**kwargs) 
+        context['object_list_all'] = Article.objects.all().order_by('-'+'created')[:5]
+        return context
 class ArticleDetailView(CachingMixin,models.Model,DetailView):
     template_name = 'article_detail.html'
     def get_object(self, **kwargs):
@@ -103,3 +111,6 @@ class ArticleDetailView(CachingMixin,models.Model,DetailView):
         except Article.DoesNotExist:
             raise Http404("Article does not exist")
         return article
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+        return context
