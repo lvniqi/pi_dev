@@ -3,8 +3,9 @@
 		{% for object in object_list %}
 		  <div class="article-item">
 			<div class="article-info">
-			  <h3 class="lead"><a href="{% url 'article_detail' object.title %}">{{ object.title_zh }}</a></h3>
-			  
+					<a href="{% url 'article_detail' object.title %}" style=" color:#666; font-size:30px;">
+						{{ object.title_zh }}
+					</a>
 			</div>
 			<div class="article-tags">
 			  <p class="pull-right" title="发表日期"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{ object.created|date:"Y/n/j G:i" }}</p>
