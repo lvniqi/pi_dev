@@ -42,6 +42,8 @@ class ArticlePublishForm(forms.Form):
             title_info = re.findall(re_title, line)
             if title_info:
                 title_zh = title_info[0]
+                data.remove(line)
+                content_html = "".join(data)
                 break
         url = '/article/%s' % (title)
         tags = cd['tags']

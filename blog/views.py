@@ -40,12 +40,15 @@ class ArticlePublishView(AdminRequiredMixin,FormView):
     def form_valid(self, form):
         form.save(self.request.user.username)
         return super(ArticlePublishView, self).form_valid(form)
-
+    def get_success_url(self):
+        title = self.request.POST.get('title')
+        success_url = reverse('article_detail', args=(title,))
+        return success_url
+        
 class ArticleEditView(AdminRequiredMixin,FormView):
     template_name = 'article_publish.html'
     form_class = ArticlePublishForm
     article = None
-
     def get_initial(self, **kwargs):
         title = self.kwargs.get('title')
         try:
