@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- 模板中使用必须要加上 {% load staticfiles %} 之后，方可使用 {% static 'path' %} 来引用静态文件。-->
+{% load staticfiles %}
 <html lang="zh-CN">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,9 +9,8 @@
 	
 	<!-- Custom styles for this template -->
     <link href="//v3.bootcss.com/examples/starter-template/starter-template.css" rel="stylesheet">
-	<!-- 模板中使用必须要加上 {% load staticfiles %} 之后，方可使用 {% static 'path' %} 来引用静态文件。-->
-	{% load staticfiles %}
 	<link rel="stylesheet" href="{% static 'css/emacs.css' %}">
+	<link href="{% static 'css/offcanvas.css' %}" rel="stylesheet">
 	{% block extra_head %}{% endblock %}
   </head>
   <body>
@@ -20,7 +21,10 @@
     {% block content %}{% endblock %}
 
     {% block footer %}{% endblock %}
-
     {% block scripts %}{% endblock %}
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="http://v3.bootcss.com/examples/offcanvas/offcanvas.js"></script>
   </body>
 </html>
