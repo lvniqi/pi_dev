@@ -3,10 +3,10 @@
 {% block content %}
 <title>{{object.title}}</title>
 <div class="container">
-
-      <div class="starter-template">
-        <h1>{{object.title_zh}}</h1>
-      </div>
+		<div class="starter-template">
+			{% load static %}
+			<h1>{{object.title_zh}} <img src="{% get_static_prefix %}qrcode/{{object.title}}.png" width="80px"/> </h1>
+		</div>
 	{% if user.is_staff %}
 		<p class="pull-right">
 			<a class="btn btn-primary" href="{{ request.get_full_path|urlencode }}/edit">修改</a>

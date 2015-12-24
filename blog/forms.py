@@ -52,8 +52,13 @@ class ArticlePublishForm(forms.Form):
                 
                 break
         url = '/article/%s' % (title)
-        img = qrcode.make("http://lvniqi.f3322.org/blog"+url)
-        img.save(dic_dir+title+'.png')
+        real_dir = dic_dir+title+'.png'
+        if os.path.exists(real_dir):
+            print "file exists!"
+        else:
+            img = qrcode.make("http://lvniqi.f3322.org/blog"+url)
+            img.save(real_dir)
+            
         tags = cd['tags']
         if article:
             article.url = url
