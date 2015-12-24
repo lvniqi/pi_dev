@@ -4,7 +4,9 @@
 		  <div class="article-item">
 			<div class="article-info">
 					<a href="{% url 'article_detail' object.title %}" style=" color:#666; font-size:30px;">
-						{{ object.title_zh }}
+						<div style="text-align: center;">
+						<h1>{{ object.title_zh }}</h1>
+						</div>
 					</a>
 			</div>
 			<div class="article-tags">
