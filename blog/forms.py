@@ -4,11 +4,15 @@
 import datetime
 import re
 import markdown
+import os
+import qrcode
 
 from django import forms
 
 from models import Article
 
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+dic_dir =  parentdir.replace('\\','/')+'/static/qrcode/'
 
 class ArticlePublishForm(forms.Form):
     title = forms.CharField(
@@ -48,6 +52,8 @@ class ArticlePublishForm(forms.Form):
                 
                 break
         url = '/article/%s' % (title)
+        img = qrcode.make("http://lvniqi.f3322.org/blog"+url)
+        img.save(dic_dir+title+'.png')
         tags = cd['tags']
         if article:
             article.url = url
