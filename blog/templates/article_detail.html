@@ -2,12 +2,16 @@
 {% load staticfiles %}
 {% block content %}
 <title>{{object.title}}</title>
-<!--<div class="container">
+<div class="container">
 
       <div class="starter-template">
-        <h1>{{object.title}}</h1>
+        <h1>{{object.title_zh}}</h1>
       </div>
-
+	{% if user.is_staff %}
+		<p class="pull-right">
+			<a class="btn btn-primary" href="{{ request.get_full_path|urlencode }}/edit">修改</a>
+		</p>
+	{% endif %}
 </div><!-- /.container -->
 
 <div class="container">
@@ -23,11 +27,6 @@
       <span class="label label-info"><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> {{ tag }}</span>
       {% endfor %}
     </div>
-	{% if user.is_staff %}
-        <p class="pull-right">
-			<a class="btn btn-primary" href="{{ request.get_full_path|urlencode }}/edit">修改</a>
-		</p>
-	{% endif %}
     <div class="article-content">
       {% autoescape off %}
       {{ object.content_html }}
